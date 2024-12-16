@@ -1,8 +1,8 @@
-import Login from "./Login/Login.jsx";
+import LoginLayout from "./Login/LoginLayout.jsx";
 
 const App = () =>{
     return <div>
-        <Login />
+        <LoginLayout />
     </div>
 }
 

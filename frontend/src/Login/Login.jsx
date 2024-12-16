@@ -1,94 +1,23 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import { styled } from "@mui/material/styles";
-import { useForm } from "../hooks/use-form";
-import Spinner from "../UI/Spinner";
+import LoginForm from "../../components/Login/Form";
+import { logInRoot } from "../../Redux/Action/userActions";
+import { useDispatch } from "react-redux";
 
-// Reemplaza makeStyles con styled
-const FormContainer = styled('form')(({ theme }) => ({
-  width: '100%', // Fix IE 11 issue
-  marginTop: theme.spacing(1),
-}));
+import LoginLayout from "../../components/Shared/LoginLayout";
 
-const SubmitButton = styled(Button)(({ theme }) => ({
-  margin: theme.spacing(3, 0, 2),
-}));
+export default function Login() {
+  const dispatch = useDispatch();
 
-const Form = ({ isLoading, submitHandler }) => {
-  const [form, onChangeHandler] = useForm({
-    email: "",
-    password: "",
-  });
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const onClickHandler = async (e) => {
-    e.preventDefault();
-    let data = {
-      email: form.email.value,
-      password: form.password.value,
-    };
-
-    submitHandler(data);
+  const submitHandler = (data) => {
+    setIsLoading(true);
+    dispatch(logInRoot(data, setIsLoading));
   };
 
-  const disabled =
-    !form.email.isValid ||
-    form.email.value === "" ||
-    !form.password.isValid ||
-    form.password.value === "";
-
-  return !isLoading ? (
-    <FormContainer onSubmit={onClickHandler}>
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        id="email"
-        label="Email"
-        name="email"
-        autoComplete="email"
-        type="email"
-        autoFocus
-        value={form.email.value}
-        onChange={onChangeHandler}
-        inputProps={{
-          maxLength: 256,
-          pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$",
-        }}
-        error={!form.email.isValid}
-      />
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        name="password"
-        label="Password"
-        type="password"
-        id="password"
-        autoComplete="current-password"
-        value={form.password.value}
-        onChange={onChangeHandler}
-        inputProps={{
-          pattern: "[a-zA-Z0-9@#!$&?.*]*$",
-          minLength: 8,
-        }}
-        error={!form.password.isValid}
-      />
-      <SubmitButton
-        disabled={disabled}
-        type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-      >
-        Ingresar
-      </SubmitButton>
-    </FormContainer>
-  ) : (
-    <Spinner />
+  return (
+    <LoginLayout>
+      <LoginForm isLoading={isLoading} submitHandler={submitHandler} />
+    </LoginLayout>
   );
-};
-
-export default Form;
+}
