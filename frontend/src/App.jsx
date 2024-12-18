@@ -1,4 +1,4 @@
-import LoginLayout from "./Login/LoginLayout.jsx";
+import LoginLayout from "./pages/Login/LoginLayout.jsx";
 
 const App = () =>{
     return <div>
