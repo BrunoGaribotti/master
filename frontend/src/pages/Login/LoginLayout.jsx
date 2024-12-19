@@ -1,7 +1,9 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import LoginIcon from '@mui/icons-material/Login';
+import LoginIcon from "@mui/icons-material/Login";
 import loginImage from "../../resources/loginPage.jpg";
+
+import { Outlet } from "react-router-dom";
 
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
@@ -26,27 +28,31 @@ const PaperContainer = styled("div")(({ theme }) => ({
   padding: `0 50px`, // Aplica un padding de 16px (2 * 8px) en los lados
 }));
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
-    backgroundColor: "white",
-    borderRadius: 15,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "24px",
-    maxWidth: "100%", // Asegura que el Paper no se salga de su contenedor
-    height: "auto", // Ajuste automático de la altura
-    width: "440px", // Ancho fijo para el Paper
-    margin: "0 auto", // Centra horizontalmente el Paper
-  }));
-  
+const Icon = styled(LoginIcon)(({ theme }) => ({
+  fontSize: "48px",
+  color: "#1976d2",
+}));
 
-const ImageContainer = styled("div")(({ theme }) => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  backgroundColor: "white",
+  borderRadius: 15,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "24px",
+  maxWidth: "100%", // Asegura que el Paper no se salga de su contenedor
+  height: "auto", // Ajuste automático de la altura
+  width: "440px", // Ancho fijo para el Paper
+  margin: "0 auto", // Centra horizontalmente el Paper
+}));
+
+const ImageContainer = styled("div")(() => ({
   flex: 1, // Toma el 50% restante del espacio
   height: "100vh", // Asegura que la imagen ocupe toda la altura
   backgroundImage: `url(${loginImage})`,
-  backgroundSize: "cover", // Asegura que la imagen cubra el contenedor
-  backgroundPosition: "center", // Ajusta la posición de la imagen
+  backgroundSize: "100% 100%", // Asegura que la imagen cubra el contenedor
+  backgroundPosition: "bottom", // Ajusta la posición de la imagen
 }));
 
 export default function LoginLayout({ children }) {
@@ -55,7 +61,11 @@ export default function LoginLayout({ children }) {
       {/* Contenedor con el formulario */}
       <PaperContainer>
         <StyledPaper elevation={24}>
-          [logo] Iniciar sesión
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <Icon/>
+            <span>Iniciar sesión</span>
+            <Outlet />
+          </div>
           <LoginForm />
         </StyledPaper>
       </PaperContainer>

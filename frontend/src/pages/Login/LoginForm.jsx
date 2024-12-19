@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useForm } from "../../hooks/use-form";
+import { Link } from "react-router-dom";
 
 const Form = ({ isLoading, submitHandler }) => {
   const [form, onChangeHandler] = useForm({
@@ -73,7 +74,9 @@ const Form = ({ isLoading, submitHandler }) => {
         }}
         error={!form.password.isValid}
       />
-      <div>Olvidé mi contraseña</div>
+        <Link to="cambiar-contraseña" style={{ color: "blue", textDecoration: "underline" }}>
+          Olvidé mi contraseña
+        </Link>
       <Button
         disabled={disabled}
         type="submit"
